@@ -1,0 +1,130 @@
+﻿
+Security Requirements
+
+This SW Development Proficiency Test is Samsung Electronics’ intellectual property devoted plenty of resources during the process.
+In the future, this test could be reused for in-house training, recruitment.
+The leakage and retransmission of the content is strictly forbidden. If there is any leakage of this confidential information, it is equivalent to the violation of our information protection policy.
+We ask the entire participant’s support for the successful promotion of SW proficiency to your colleagues. 
+
+Mobile R&D Office
+ SW Proficiency Buildup Dep.
+
+
+[Problem] Please write C program according to the following condition
+
+There is a building to have 100 floors from 0th to 99th.  There is one security guard in every floor, who has given number: 0~99.   
+Following the given number, every guard works on the floor to match the given number.
+The given number for security guard changes frequently, if the number changes, all the guards should be relocated depending on the new number.
+Whenever the number changed randomly, all the security guards are on standby to relocate at the front of elevator on each floor.
+ (For example, the security guard who has the number 12 waits on 0th floor and the security guard who has the number 34 waits on 1th floor.)
+
+The building has one elevator. The capacity of the elevator is only one people.
+Through the building's elevators, move the security guard to each floor to match the given number.
+ (For example, the security guard who has 12 moves to 12th floor and the security guard who has 34 moves to 34th floor.)
+
+The security guard patrols the floor immediately when he gets off the elevator. 
+Therefore, every security guard can take on the elevator only one time. (Cannot get on the elevator once again after boarding)
+In addition, more than 2 persons cannot be placed on one floor at the same time.
+It is not allowed more than 2 guards to get on the elevator at the same time.
+
+If necessary, you can exchange one guard in elevator and another guard waiting at the front of elevator on the floor. (Check the function : exchange_elevator)
+
+There is no limit about how many times to move the elevator. The elevator starts on 0th floor at first.
+
+[Notice] You must verify your implementation!
+
+Do not use any external libraries including the standard library. (#include <stdio.h>, <stdlib.h> is not allowed.)
+Given main.cpp will be replaced with an enhanced version for error detection during evaluation (in order to check if one guard gets on the elevator more than 2 times.)
+
+[Provided function]
+
+void move_elevator(int n);
+- Move the elevator to nth floor. ( The number of elevator movements is unlimited.)
+int get_floor(void);
+- Get the given number of the guard on current floor where the elevator located. (If there’s no guard on the floor, returns -1)
+void load_elevator(void);
+- The guard of current floor gets on the elevator. 
+void unload_elevator(void);
+- The guard in the elevator takes off the elevator on current floor. (The guard is unable to get on again)
+void exchange_elevator(void);
+- The security guard in the elevator takes off on current floor and the other guard standby on current floor get on the elevator. ( If there is no guard in the elevator or no guard standby on the current floor, exchange_elevator() do nothing)
+
+
+[single_id.cpp]
+
+void move_elevator(int n);
+int  get_floor(void);
+void load_elevator(void);
+void unload_elevator(void);
+void exchange_elevator(void);
+
+void run_test(void)
+{
+}
+
+[main.cpp]
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define FLOOR 100
+
+void run_test(void);
+
+static int floor[FLOOR];
+static int elevator_pos;
+static int elevator_person;
+
+void move_elevator(int n)
+{
+    elevator_pos = n;
+}
+
+int get_floor(void)
+{
+    return floor[elevator_pos];
+}
+
+void load_elevator(void)
+{
+    elevator_person     = floor[elevator_pos];
+    floor[elevator_pos] = -1;
+}
+
+void unload_elevator(void)
+{
+    floor[elevator_pos] = elevator_person;
+}
+
+void exchange_elevator(void)
+{
+    int tmp             = floor[elevator_pos];
+    floor[elevator_pos] = elevator_person;
+    elevator_person     = tmp;
+}
+
+void build_data(void)
+{
+    for (int c = 0; c < FLOOR; c++) floor[c] = c;
+
+    for (int c = 0; c < FLOOR * FLOOR; c++)
+    {
+        int i1 = rand() % FLOOR;
+        int i2 = rand() % FLOOR;
+
+        int tmp   = floor[i1];
+        floor[i1] = floor[i2];
+        floor[i2] = tmp;
+    }
+
+    elevator_pos = 0;
+}
+
+void main(void)
+{
+    for (int l = 0; l < 10; l++)
+    {
+        build_data();
+        run_test();
+    }
+}

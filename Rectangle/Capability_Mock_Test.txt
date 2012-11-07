@@ -1,0 +1,55 @@
+There is a pack of new tennis balls stacked in cylindrical container one over the other. At any time only one ball can be reoved from this pack and one ball can be placed on top of the pack.
+
+At the beggining of the match balls are removed one by one and are kept back in the pack at the end of the match. With this approach usually some balls are left unused.
+
+We need to device a mechanism that will bring the new balls from the bottom to the top of the pack.
+
+We need to make sure that the new balls are not scattered on the ground and hence we can use two temporary containers one of which has its bottom removed so that balls can be added to the end and removed from the top of the container.
+
+There’s no memory limit and a pack can have as many as 100 balls. 
+Do not use any external libraries including the standard libraries.
+
+
+ 
+File:- single_id.cpp : Rename single_id.cpp as [your single id].cpp and submit your answer in it.
+
+/* [Provided function]*/
+
+void TempContainer_push(int b);				// Put the ball in the container
+int TempContainer_pop(void);				// Remove the ball from the top of the container
+bool TempContainer_moreBalls(void);			// Check if there are more balls left in container.
+
+void BottomLessContainer_Enque(int b);			// Put the ball at the bottom of the temporary container without bottom
+int BottomLessContainer_Deque(void);			// Remove the ball from the top of the temporary container without bottom.
+bool BottomLessContainer_moreBalls(void);		// Check if the temporary container has any balls left in it.
+
+
+
+Reverse_Pack(int *)
+{
+/* Implement this function using the functions provided above*/
+
+
+}
+
+
+
+
+
+File2:- main.cpp : you don’t need to submit it. Even you modify it it is not reflected to the score
+
+
+
+#include <stdlib.h>
+
+Reverse_Pack(int *);
+
+
+void main(void)
+{
+  int Balls[100];
+  
+  Reverse_Pack(Balls);
+}
+
+
